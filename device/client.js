@@ -21,7 +21,7 @@ var options = {
     rejectUnauthorized: false
 };
 
-var host = 'ws://127.0.0.1:8080';
+var host = 'tcp://127.0.0.1:1884';
 var client = mqtt.connect(host, options);
 
 
