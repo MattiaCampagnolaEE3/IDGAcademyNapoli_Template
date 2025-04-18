@@ -1,0 +1,86 @@
+# test GET /API/data/:id - status OK
+GET http://localhost:3001/API/data/device1
+
+#############################################
+
+# test GET /API/data/:id - status 404
+GET http://localhost:3001/API/data/device2813092
+
+#############################################
+
+# test GET /API/users - status OK
+GET http://localhost:3001/API/users
+
+#############################################
+
+# test UPDATE [1] /API/data/:id status OK
+PUT http://localhost:3001/API/users/device4
+Content-Type: application/json
+
+{
+  "groupname": "newgroup",
+  "gender": "male",
+  "height": 1.80,
+  "weight": 75,
+  "age": 28,
+  "liftedweight": 90,
+  "shiftduration": 420
+}
+
+#############################################
+
+# test UPDATE [2 - no liftedweight & no shiftduration] /API/data/:id status OK
+PUT http://localhost:3001/API/users/device4
+Content-Type: application/json
+
+{
+  "groupname": "newgroup",
+  "gender": "female",
+  "height": 1.60,
+  "weight": 60,
+  "age": 36
+}
+#############################################
+
+# test UPDATE /API/data/:id - status 404 [deviceId not existing]
+PUT http://localhost:3001/API/users/device5
+Content-Type: application/json
+
+{
+  "groupname": "newgroup",
+  "gender": "male",
+  "height": 1.80,
+  "weight": 75,
+  "age": 28,
+  "liftedweight": 90,
+  "shiftduration": 420
+}
+
+#############################################
+
+# test UPDATE /API/data/:id - status 400 [missing field]
+PUT http://localhost:3001/API/users/device4
+Content-Type: application/json
+
+{
+  "groupname": "newgroup",
+  "gender": "male",
+  "height": 1.80,
+  "weight": 75
+}
+
+#############################################
+
+# test UPDATE /API/data/:id - status 400 [wrong gender]
+PUT http://localhost:3001/API/users/device4
+Content-Type: application/json
+
+{
+  "groupname": "newgroup",
+  "gender": "him",
+  "height": 1.80,
+  "weight": 75,
+  "age": 29
+}
+
+#############################################
