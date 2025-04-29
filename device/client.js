@@ -21,7 +21,8 @@ var options = {
     rejectUnauthorized: false
 };
 
-var host = 'tcp://127.0.0.1:1884';
+/* -- tcp://...:1884 to use MQTT over TCP (classic MQTT used for IoT) -- */
+var host = 'tcp://127.0.0.1:1884'; // alternative: ws://127.0.0.1:8080 to use MQTT over websocket as transport (used in webclients)
 var client = mqtt.connect(host, options);
 
 
