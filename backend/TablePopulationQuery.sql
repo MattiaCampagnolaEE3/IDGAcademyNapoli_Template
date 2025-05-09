@@ -42,10 +42,6 @@ VALUES ('device2', 'gruppo2', 'female', 1.60, 55.0, 33, null, null);
 INSERT INTO user (deviceid, groupname, gender, height, weight, age, liftedweight, shiftduration) 
 VALUES ('device3', 'gruppo3', 'other', 1.95, 97.0, 50, null, null);
 
-INSERT INTO user (deviceid, groupname, gender, height, weight, age, liftedweight, shiftduration) 
-VALUES ('device4', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-
-DELETE FROM user WHERE deviceid = 'device4'
 
 INSERT INTO data ( 
     acceleration_x, 
