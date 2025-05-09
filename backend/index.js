@@ -6,8 +6,11 @@ const morgan = require('morgan');
 const cors = require('cors');
 const service = require('./service');
 
+/* -- Not mandatory middlewares -- */
+const { body, validationResult } = require('express-validator');
 
-/* -- SERVER AND MIDDLEWARE CONFIGURATION -- */
+
+/* -- WEBSERVER AND MIDDLEWARE CONFIGURATION -- */
 
 /* Express server init */
 const app = new express();
@@ -26,6 +29,23 @@ app.use(cors(corsOptions));
 
 
 /* -- API controllers  -- */
+
+/* Validation Rules */
+const genderValues = ['male', 'female', 'other'];
+const postApiUsersValidationRules = [
+    body('groupname').exists().notEmpty().withMessage('This field is mandatory'),
+    body('gender').exists().notEmpty().withMessage('This field is mandatory')
+        .isIn(genderValues).withMessage('Invalid gender value'),
+    body('height').exists().notEmpty().withMessage('This field is mandatory')
+        .isFloat().withMessage('Wrong field type'),
+    body('weight').exists().notEmpty().withMessage('This field is mandatory')
+        .isFloat().withMessage('Wrong field type'),
+    body('age').exists().notEmpty().withMessage('This field is mandatory')
+        .isInt().withMessage('Wrong field type'),
+];
+
+
+/* API Endpoints */
 
 app.get('/API/data/:id', async (req, res) => {
     try {
@@ -59,29 +79,17 @@ app.get('/API/users', async (req, res) => {
     }
 })
 
-app.put('/API/users/:deviceId', async (req, res) => {
+app.put('/API/users/:deviceId', postApiUsersValidationRules, async (req, res) => {
     const deviceId = req.params.deviceId;
     const content = req.body;
-
-    // check all values are filled
-    const requiredFields = ['groupname', 'gender', 'height', 'weight', 'age'];
-    const missingFields = requiredFields.filter(field => !(field in content));
-
-    if (missingFields.length > 0) {
-        return res.status(400).json({
-            error: `Missing required fields: ${missingFields.join(', ')}`
-        });
-    }
-
-    // check gender is female, male or other
-    const acceptedGenders = ['male', 'female', 'other'];
-    if(!acceptedGenders.includes(content.gender)) {
-        return res.status(400).json({
-            error: `${content.gender} is invalid. Accepted values for gender: ${acceptedGenders.join(', ')}`
-        });
-    }
-
+    
     try {
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          return res.status(400).json({ errors: errors.array() });
+        }
+
         const result = await service.updateUserByDeviceId(deviceId, content);
 
         if (result.updatedRows === 0) {
@@ -101,3 +109,81 @@ app.put('/API/users/:deviceId', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`)
 });
+
+
+
+/* -- MQTT CLIENT CONFIGURATION -- */
+
+/* Variables and Constants */
+var mqtt = require('mqtt');
+var clientId = 'clientmqtt_' + Math.random().toString(16).substr(2,8);
+const dataTopic = 'data/#'
+const alertTopic = 'alert/#';
+
+var options = {
+    keepalive: 30,
+    clientId: clientId,
+    clean: true,
+    reconnectPeriod: 1000,
+    connectTimeout: 30*1000,
+    will: {
+        topic: 'WillMsg',
+        payload: 'Backend client: connection closed abnormally!',
+        qos: 0,
+        retain: false
+    },
+    rejectUnauthorized: false
+};
+
+
+/* -- MQTT connection -- */
+// tcp://...:1884 to use MQTT over TCP (classic MQTT used for IoT)
+var host = 'tcp://127.0.0.1:1884'; // alternative: ws://127.0.0.1:8080 to use MQTT over websocket as transport (used in webclients)
+var client = mqtt.connect(host, options);
+
+
+/* -- MQTT events management -- */
+client.on('error', function (err) {
+    console.log('MQTT error event detected: ', err);
+    client.end();
+});
+
+client.on('connect', function () {
+    console.log('MQTT client connected: ', clientId);
+
+    try {
+        console.log('subscribing topics\n' + dataTopic + '\n' + alertTopic);
+        client.subscribe(dataTopic);
+        client.subscribe(alertTopic);
+    }
+    catch (e) {
+        console.log('onConnect caught exception: ', e);
+    }
+
+});
+
+client.on('message', (topic, message) => {
+    try {
+        // Parsing message
+        var parsedMessage = JSON.parse(message);
+        
+        /* -- LOGIC -- */
+        console.log("Received MQTT message in topic:\n" + topic +"\nMessage:\n" + parsedMessage)
+    }
+
+    catch (e) {
+        console.log("onMessage caught exception: ", e);
+    }
+})
+
+client.on('close', function () {
+    console.log(clientId + ' disconnected');
+    try {
+        console.log('unsubscribing topics\n' + dataTopic + '\n' + alertTopic);
+        client.unsubscribe(dataTopic)
+        client.unsubscribe(alertTopic)
+    }
+    catch (e) {
+        console.log('onClose caught exception: ', e)
+    }
+})

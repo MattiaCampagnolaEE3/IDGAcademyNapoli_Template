@@ -48,10 +48,10 @@ Content-Type: application/json
 
 {
   "groupname": "newgroup",
-  "gender": "male",
+  "gender": "otherar",
   "height": 1.80,
   "weight": 75,
-  "age": 28,
+  "age": 33,
   "liftedweight": 90,
   "shiftduration": 420
 }
