@@ -14,7 +14,7 @@ GET http://localhost:3001/API/users
 #############################################
 
 # test UPDATE [1] /API/data/:id status OK
-PUT http://localhost:3001/API/users/device4
+PUT http://localhost:3001/API/users/device2
 Content-Type: application/json
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/json
 #############################################
 
 # test UPDATE [2 - no liftedweight & no shiftduration] /API/data/:id status OK
-PUT http://localhost:3001/API/users/device4
+PUT http://localhost:3001/API/users/device2
 Content-Type: application/json
 
 {
@@ -48,7 +48,7 @@ Content-Type: application/json
 
 {
   "groupname": "newgroup",
-  "gender": "otherar",
+  "gender": "male",
   "height": 1.80,
   "weight": 75,
   "age": 33,

@@ -32,7 +32,7 @@ app.use(cors(corsOptions));
 
 /* Validation Rules */
 const genderValues = ['male', 'female', 'other'];
-const postApiUsersValidationRules = [
+const putApiUsersValidationRules = [
     body('groupname').exists().notEmpty().withMessage('This field is mandatory'),
     body('gender').exists().notEmpty().withMessage('This field is mandatory')
         .isIn(genderValues).withMessage('Invalid gender value'),
@@ -79,7 +79,7 @@ app.get('/API/users', async (req, res) => {
     }
 })
 
-app.put('/API/users/:deviceId', postApiUsersValidationRules, async (req, res) => {
+app.put('/API/users/:deviceId', putApiUsersValidationRules, async (req, res) => {
     const deviceId = req.params.deviceId;
     const content = req.body;
     
