@@ -143,8 +143,37 @@ function updateUserByDeviceId(deviceId, content) {
     });
 }
 
+// Alert detection - implementation for heartrate 
+function detectAlert(data) {
+    try {
+        const hrValue = data.heartrate?.value;
+        const hrValid = data.heartrate?.isValid;
+
+        if (hrValid == 0) {
+            console.log('Invalid heartrate data');
+            return null;
+        }
+
+        if (hrValue < 60 || hrValue > 100) {
+            console.log('Heartrate out of range. Sending alert..');
+            return {
+                message: 'Your parameters are out of range!',
+                parameter: ["heartrate"],
+                heartrate: hrValue
+            };
+        }    
+    }
+    catch (e) {
+        console.log('Error in alert: ', e);
+    }
+
+    return null;
+
+}
+
 module.exports = {
     getData, 
     getUsers,
-    updateUserByDeviceId
+    updateUserByDeviceId,
+    detectAlert
 };

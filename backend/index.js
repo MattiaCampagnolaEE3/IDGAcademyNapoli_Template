@@ -166,9 +166,16 @@ client.on('message', (topic, message) => {
     try {
         // Parsing message
         var parsedMessage = JSON.parse(message);
+        console.log("Received MQTT message in topic: " + topic +"\nMessage:\n" + message.toString());
+    
+        // Alert detection
+        const alert = service.detectAlert(parsedMessage);
         
-        /* -- LOGIC -- */
-        console.log("Received MQTT message in topic:\n" + topic +"\nMessage:\n" + parsedMessage)
+        if (alert) {
+            client.publish('alert/' + topic.split("/")[1], JSON.stringify(alert), { q0s: 0, retain: false});
+            console.log('Alert sent');
+        }
+
     }
 
     catch (e) {

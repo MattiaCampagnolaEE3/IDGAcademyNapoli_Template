@@ -47,12 +47,13 @@ client.on('connect', function () {
 });
 
 client.on('message', (topic, message) => {
+
     try {
         // Parsing message
         var parsedMessage = JSON.parse(message);
         
         if (topic.startsWith("alert")) {
-            console.log("Received alert: \n", parsedMessage);
+            console.log("Received alert from device", topic.split("/")[1], ": \n", parsedMessage);
         }
     }
 
@@ -104,11 +105,11 @@ function generateSensorData() {
 		},
 		heartrate: {
 			value: getRandomInt(50, 180),
-			isValid: Math.random() < 0.95, // 95% valid
+            isValid: Math.random() < 0.95 ? 1 : 0, // 95%  valid
 		},
 		spoxygen: {
 			value: getRandomInt(90, 100),
-			isValid: Math.random() < 0.95,
+            isValid: Math.random() < 0.95 ? 1 : 0, // 95%  valid
 		},
 		temperature: getRandomFloat(34.0, 40.0, 1),
 		timestamp: now.toISOString(),
@@ -126,8 +127,10 @@ function generateSensorData() {
 setInterval(() => {
 	const sensorData = generateSensorData();
 	console.log(JSON.stringify(sensorData));
+    
     try {
         client.publish(dataTopic, JSON.stringify(sensorData), { qos: 0, retain: false});
+        
     }
     catch (e) {
         console.log('Error while publishing message: ', e);
