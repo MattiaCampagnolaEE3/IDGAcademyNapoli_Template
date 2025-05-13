@@ -143,8 +143,108 @@ function updateUserByDeviceId(deviceId, content) {
     });
 }
 
+// Alert detection - implementation for heartrate 
+function detectAlert(data) {
+    return new Promise((resolve, reject) => {
+        try {
+            const hrValue = data.heartrate?.value;
+            const hrValid = data.heartrate?.isValid;
+
+            if (hrValid === 0) {
+                console.log('Invalid heartrate data');
+                return resolve(null);
+            }
+
+            if (hrValue < 60 || hrValue > 100) {
+                console.log('Heartrate out of range. Sending alert..');
+                return resolve({
+                    message: 'Your parameters are out of range!',
+                    parameter: ['heartrate'],
+                    heartrate: hrValue
+                });
+            }
+
+            resolve(null); 
+        } catch (e) {
+            console.log('Error in alert: ', e);
+            reject(e); 
+        }
+    });
+}
+
+// Save data to database
+function saveDataToDatabase(dataToSave) {
+    return new Promise((resolve, reject) => {
+        const insertQuery = `
+            INSERT INTO data ( 
+                acceleration_x, 
+                acceleration_y, 
+                acceleration_z, 
+                gyroscope_x, 
+                gyroscope_y, 
+                gyroscope_z, 
+                compass_x,
+                compass_y,
+                compass_z,
+                heartrate_value,
+                heartrate_isvalid,
+                spoxygen_value,
+                spoxygen_isvalid,
+                temperature,
+                timestamp,
+                altitude,
+                latitude,
+                longitude,
+                deviceid)
+            VALUES (
+                ?, ?, ?,
+                ?, ?, ?,
+                ?, ?, ?,
+                ?, ?,
+                ?, ?,
+                ?,
+                ?,
+                ?, ?, ?,
+                ?
+                )
+        `;
+
+        const data_values = [
+            dataToSave.acceleration?.ax,
+            dataToSave.acceleration?.ay,
+            dataToSave.acceleration?.az,
+            dataToSave.gyroscope?.gx,
+            dataToSave.gyroscope?.gy,
+            dataToSave.gyroscope?.gz,
+            dataToSave.compass?.cx,
+            dataToSave.compass?.cy,
+            dataToSave.compass?.cz,
+            dataToSave.heartrate?.value,
+            dataToSave.heartrate?.isValid,
+            dataToSave.spoxygen?.value,
+            dataToSave.spoxygen?.isValid,
+            dataToSave.temperature,
+            dataToSave.timestamp,
+            dataToSave.coordinates?.altitude,
+            dataToSave.coordinates?.latitude,
+            dataToSave.coordinates?.longitude,
+            'device1'
+        ];
+
+        db.run(insertQuery, data_values, function (err) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(this.lastID);
+            }
+        });
+    });
+}
+
 module.exports = {
     getData, 
     getUsers,
-    updateUserByDeviceId
+    updateUserByDeviceId,
+    detectAlert,
+    saveDataToDatabase
 };
