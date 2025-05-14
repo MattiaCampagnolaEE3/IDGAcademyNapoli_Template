@@ -67,7 +67,7 @@ Check that the database was populated <br>
 * Right-click on `database.sqlite` and select *Open Database*
 * In the **SQLITE EXPLORER** you should see two tables (`user`and `data`)
 
-  ![Database content](pictures/database_content.png)
+    ![Database content](pictures/database_content.png)
 
 * Click on the play icon to see the content of the table
 
