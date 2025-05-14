@@ -6,15 +6,18 @@ Install the following tools:
 * install nodejs
 * install vscode
 * install some useful vscode plugins from vscode extensions:
-  * SQLite: database viewer and querier
-  * REST Client: easy way to test APIs with a .http file
+    * SQLite: database viewer and querier
+    * REST Client: easy way to test APIs with a .http file
 
 ## Clone the repository
-First, on your local machine, create the folder where you will store your local repository. <br>
-Then, on the main page of the Bitbucket repository, click on *Clone* (top-right part of the page).
-Select the option *Clone in VS Code* and allow the site to open Visual Studio Code. A pop-up window should appear - check the box to give permission and then click on *Open*. <br>
-Visual Studio Code should open and you need to allow the URI to be opened. Click *Open* in the pop-up window that shows up.<br>
-Select *Clone new copy*, choose the folder you created in the first step and click *Select as repository destination*.<br>
+
+* On your local machine, create the folder where you will store your local repository
+* On the main page of the Bitbucket repository, click on *Clone* (top-right part of the page)
+* Select the option *Clone in VS Code* and allow the site to open Visual Studio Code. A pop-up window should appear - check the box to give permission and then click on *Open*.
+* Visual Studio Code should open and you need to allow the URI to be opened. Click *Open* in the pop-up window that shows up.
+* Select *Clone new copy*, choose the folder you created in the first step and click *Select as repository destination*.
+
+
 After a few seconds, you should see the repository cloned and opened in your Visual Studio Code. In the Explorer panel (top-left side), you should see the following structure:
 
 ![Project folder structure](pictures/project_folder_structure.png)
