@@ -1,6 +1,6 @@
 # IDG Academy Napoli -> Backend
 
-## Tools installation:
+## Tools installation
 Install the following tools:
 
 * install nodejs
@@ -65,6 +65,7 @@ Check that the database was populated <br>
 * In the **SQLITE EXPLORER** you should see two tables (`user`and `data`)
 
   ![Database content](pictures/database_content.png)
+
 * Click on the play icon to see the content of the table
 
 ## Start the server
@@ -88,8 +89,8 @@ Check that the database was populated <br>
 
 * Download and install Eclipse Mosquitto x64 from web (requires admin level) -- should already be installed
 
-  ⚠️ **Do not** open mosquitto.exe manually, see below
-  
+    ⚠️ **Do not** open mosquitto.exe manually, see below
+
 * Copy the path to the `mosquitto.conf` file, located in the project folder (should be `./Mosquitto Configurations/Windows/mosquitto.conf`)
 * Open a cmd terminal in the folder thwere the **Mosquitto executable** (i.e. mosquitto.exe) is located (e.g. `C:\Programfiles\mosquitto`)
 * To start the broker instance, run
@@ -103,7 +104,7 @@ Check that the database was populated <br>
 
 * Open a VSCode terminal (cmd) in the `device` folder
   
-  💡 **HINT** Split the terminal view so you can run the client instance and the server in parallel, and check them simultaneously.
+    💡 **HINT** Split the terminal view so you can run the client instance and the server in parallel, and check them simultaneously.
 
 * To start the client, tun
   ```bash
