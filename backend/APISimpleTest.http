@@ -19,6 +19,8 @@ Content-Type: application/json
 
 {
   "groupname": "newgroup",
+  "email": "prova1@example.com",
+  "password": "password123456",
   "gender": "male",
   "height": 1.80,
   "weight": 75,
@@ -84,3 +86,84 @@ Content-Type: application/json
 }
 
 #############################################
+
+# test UPDATE /API/data/:id status - status 400 [password too small]
+PUT http://localhost:3001/API/users/device2
+Content-Type: application/json
+
+{
+  "groupname": "newgroup",
+  "email": "prova1@example.com",
+  "password": "passw",
+  "gender": "male",
+  "height": 1.80,
+  "weight": 75,
+  "age": 28,
+  "liftedweight": 90,
+  "shiftduration": 420
+}
+
+#############################################
+
+# test UPDATE /API/data/:id status - status 400 [empty email]
+PUT http://localhost:3001/API/users/device2
+Content-Type: application/json
+
+{
+  "groupname": "newgroup",
+  "email": "",
+  "password": "password",
+  "gender": "male",
+  "height": 1.80,
+  "weight": 75,
+  "age": 28,
+  "liftedweight": 90,
+  "shiftduration": 420
+}
+
+##################################################
+
+# test POST /API/login status - status 200
+POST http://localhost:3001/API/login
+Content-Type: application/json
+
+{
+  "email": "gruppo1@gmail.com",
+  "password": "password1234"
+}
+
+##################################################
+
+# test POST /API/login status - status 403
+POST http://localhost:3001/API/login
+Content-Type: application/json
+
+{
+  "email": "gruppo1@gmail.com",
+  "password": "prov"
+}
+
+##################################################
+
+# test POST /API/login status - status 403
+POST http://localhost:3001/API/login
+Content-Type: application/json
+
+{
+  "email": "",
+  "password": "prov"
+}
+
+
+##################################################
+
+# test POST /API/login status - status 403
+
+POST http://localhost:3001/API/login
+Content-Type: application/json
+
+{
+  "email": "",
+  "password": ""
+}
+

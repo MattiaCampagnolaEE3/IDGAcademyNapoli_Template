@@ -36,6 +36,9 @@ const putApiUsersValidationRules = [
     body('groupname').exists().notEmpty().withMessage('This field is mandatory'),
     body('gender').exists().notEmpty().withMessage('This field is mandatory')
         .isIn(genderValues).withMessage('Invalid gender value'),
+    body('email').exists().notEmpty().withMessage('This field is mandatory'),
+    body('password').exists().notEmpty().withMessage('This field is mandatory')
+        .isLength({min: 8}).withMessage('Password length should be at least 8 characters'),
     body('height').exists().notEmpty().withMessage('This field is mandatory')
         .isFloat().withMessage('Wrong field type'),
     body('weight').exists().notEmpty().withMessage('This field is mandatory')
@@ -46,6 +49,23 @@ const putApiUsersValidationRules = [
 
 
 /* API Endpoints */
+
+app.post('/API/login', async (req, res) => {
+    try {
+        const credentials = req.body
+        const result = await service.login(credentials)
+
+        if (!result){
+            return res.status(403).json({error: `Access forbidden`})
+        }
+
+        return res.status(200).end()
+    }
+
+    catch(err){
+        return res.status(500).json({error: err})
+    }
+})
 
 app.get('/API/data/:id', async (req, res) => {
     try {

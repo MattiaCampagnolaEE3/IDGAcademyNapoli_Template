@@ -12,6 +12,20 @@ getDatabaseInstance()
 
 /* -- Services -- */
 
+function login(credentials){
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT COUNT(*) AS count FROM USER WHERE email = ? AND password = ?';
+        db.get(sql, [credentials.email, credentials.password], (err, row) => {
+            
+            if (err) {
+                reject(err);
+            }
+            
+           return resolve(row.count)
+        });
+    });
+}
+
 function getData(deviceid){
     return new Promise((resolve, reject) => {
 
@@ -113,6 +127,8 @@ function updateUserByDeviceId(deviceId, content) {
         const updateSql = `
             UPDATE user SET 
                 groupname = ?,
+                email = ?,
+                password = ?,
                 gender = ?,
                 height = ?,
                 weight = ?,
@@ -124,6 +140,8 @@ function updateUserByDeviceId(deviceId, content) {
 
         const values = [
             content.groupname,
+            content.email,
+            content.password,
             content.gender,
             content.height,
             content.weight,
@@ -242,6 +260,7 @@ function saveDataToDatabase(dataToSave) {
 }
 
 module.exports = {
+    login,
     getData, 
     getUsers,
     updateUserByDeviceId,

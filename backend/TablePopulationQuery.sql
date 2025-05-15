@@ -33,14 +33,14 @@ CREATE TABLE IF NOT EXISTS data (
                 FOREIGN KEY (deviceid) REFERENCES user(deviceid));
 
 
-INSERT INTO user (deviceid, groupname, gender, height, weight, age, liftedweight, shiftduration) 
-VALUES ('device1', 'gruppo1', 'male', 1.83, 82.7, 25, 20.0, 120);
+INSERT INTO user (deviceid, groupname, email, password, gender, height, weight, age, liftedweight, shiftduration) 
+VALUES ('device1', 'gruppo1', 'gruppo1@gmail.com', 'password1234', 'male', 1.83, 82.7, 25, 20.0, 120);
 
-INSERT INTO user (deviceid, groupname, gender, height, weight, age, liftedweight, shiftduration) 
-VALUES ('device2', 'gruppo2', 'female', 1.60, 55.0, 33, null, null);
+INSERT INTO user (deviceid, groupname, email, password, gender, height, weight, age, liftedweight, shiftduration) 
+VALUES ('device2', 'gruppo2', 'gruppo2@gmail.com', 'password1234', 'female', 1.60, 55.0, 33, null, null);
 
-INSERT INTO user (deviceid, groupname, gender, height, weight, age, liftedweight, shiftduration) 
-VALUES ('device3', 'gruppo3', 'other', 1.95, 97.0, 50, null, null);
+INSERT INTO user (deviceid, groupname, email, password, gender, height, weight, age, liftedweight, shiftduration) 
+VALUES ('device3', 'gruppo3', 'gruppo3@gmail.com', 'password1234', 'other', 1.95, 97.0, 50, null, null);
 
 
 INSERT INTO data ( 
