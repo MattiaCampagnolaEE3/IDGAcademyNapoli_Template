@@ -186,20 +186,20 @@ client.on('message', async (topic, message) => {
     try {
         // Parsing message
         var parsedMessage = JSON.parse(message);
-        
+        const deviceId = topic.split("/")[1];
         
         // Data messages
         if (topic.startsWith('data')) {
             console.log("Received MQTT message in topic: " + topic +"\nMessage:\n" + message.toString());
             // save data to DB
             console.log('Saving data into DB...');
-            const id = await service.saveDataToDatabase(parsedMessage);
+            const id = await service.saveDataToDatabase(parsedMessage, deviceId);
             console.log('Data stored in the database: ', id);
 
             // Alert detection
             const alert = await service.detectAlert(parsedMessage);
             if (alert) {
-                client.publish('alert/' + topic.split("/")[1], JSON.stringify(alert), { q0s: 0, retain: false});
+                client.publish('alert/' + deviceId, JSON.stringify(alert), { q0s: 0, retain: false});
                 console.log('Alert sent');
             } 
         } else if (topic.startsWith('alert')) {

@@ -191,7 +191,7 @@ function detectAlert(data) {
 }
 
 // Save data to database
-function saveDataToDatabase(dataToSave) {
+function saveDataToDatabase(dataToSave, deviceId) {
     return new Promise((resolve, reject) => {
         const insertQuery = `
             INSERT INTO data ( 
@@ -246,7 +246,7 @@ function saveDataToDatabase(dataToSave) {
             dataToSave.coordinates?.altitude,
             dataToSave.coordinates?.latitude,
             dataToSave.coordinates?.longitude,
-            'device1'
+            deviceId
         ];
 
         db.run(insertQuery, data_values, function (err) {
