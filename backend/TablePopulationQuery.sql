@@ -2,6 +2,8 @@
 CREATE TABLE IF NOT EXISTS user (
                 deviceid TEXT PRIMARY KEY,
                 groupname TEXT,
+                email TEXT,
+                password TEXT,
                 gender TEXT,
                 height REAL,
                 weight REAL,

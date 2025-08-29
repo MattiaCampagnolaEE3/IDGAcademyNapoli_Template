@@ -3,16 +3,20 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "apiTest": "mocha"
   },
+  "type": "module",
   "author": "",
   "license": "ISC",
   "description": "* install nodejs\r * install vscode\r * install some useful vscode plugins from vscode extensions:\r   * SQLite: database viewer and querier\r   * REST Client: easy way to test APIs with a .http file",
   "dependencies": {
+    "chai": "^5.2.0",
+    "chai-http": "^5.1.2",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "express-json": "^1.0.0",
     "express-validator": "^7.2.1",
+    "mocha": "^11.5.0",
     "morgan": "^1.10.0",
     "mqtt": "^5.12.0",
     "sqlite3": "^5.1.7"

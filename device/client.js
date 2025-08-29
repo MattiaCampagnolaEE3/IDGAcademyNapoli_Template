@@ -1,5 +1,5 @@
 const deviceId = 'device1';
-const dataTopic = 'data/' + deviceId
+const dataTopic = 'data/' + deviceId;
 const alertTopic = 'alert/' + deviceId;
 
 /* -- MQTT connection -- */
@@ -36,8 +36,7 @@ client.on('connect', function () {
     console.log('MQTT client connected: ', clientId);
 
     try {
-        console.log('subscribing topics\n' + dataTopic + '\n' + alertTopic);
-        client.subscribe(dataTopic);
+        console.log('subscribing topic ', alertTopic);
         client.subscribe(alertTopic);
     }
     catch (e) {
@@ -65,8 +64,7 @@ client.on('message', (topic, message) => {
 client.on('close', function () {
     console.log(clientId + ' disconnected');
     try {
-        console.log('unsubscribing topics\n' + dataTopic + '\n' + alertTopic);
-        client.unsubscribe(dataTopic)
+        console.log('unsubscribing topic ', alertTopic);
         client.unsubscribe(alertTopic)
     }
     catch (e) {
