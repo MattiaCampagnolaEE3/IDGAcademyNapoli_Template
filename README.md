@@ -29,7 +29,7 @@ Install the following tools:
 ## First set up
 Before running the software, **only the first time**, you need to install all the required packages to ensure proper execution. Follow these steps:<br>
 
-* In the project folder in VSCode, open a new terminal (e.g. cmd is already ok)
+* Open a new terminal in the project root folder (e.g. cmd is already ok)
 * Navigate to the `backend` folder by typing 
   ``` bash
   cd backend
@@ -43,10 +43,9 @@ Before running the software, **only the first time**, you need to install all th
   npm install
   ```
 * In a few seconds all packages present in `package_json` file will be automatically installed
-* Repeat this procedure for the `device` folder. Open a new terminal (cmd) and type:
+* Repeat this procedure for the `device` folder. Position yourself in the device folder via terminal (e.g. cmd is ok)
   ``` bash
   cd device
-  npm init
   npm install
   ```
 
