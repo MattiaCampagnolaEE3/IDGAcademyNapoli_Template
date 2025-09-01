@@ -49,6 +49,16 @@ Before running the software, **only the first time**, you need to install all th
   npm install
   ```
 
+## Start the server
+
+* Open a VSCode terminal (cmd) in the `backend` folder
+* To start the server, run
+  ```bash
+  node index.js
+  ```
+* This will also create the database.sqlite instance (SQLite file to be used as database).
+* Now, stop the server, pressing `Ctrl+c`
+
 
 ## Populate the database with some example content
 The code you are provided with, includes  examples of queries that you can use to create the tables and populate them with sample data.
@@ -72,15 +82,6 @@ Check that the database was populated <br>
     ![Database content](pictures/database_content_2.png)
 
 * Click on the play icon to see the content of the table
-
-## Start the server
-
-* Open a VSCode terminal (cmd) in the `backend` folder
-* To start the server, run
-  ```bash
-  node index.js
-  ```
-* To stop the server, press `Ctrl+c`
 
 ## Test APIs in an easy way via Rest Client
 
