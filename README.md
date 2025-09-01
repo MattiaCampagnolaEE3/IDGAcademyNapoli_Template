@@ -9,24 +9,27 @@ Install the following tools:
     * SQLite: database viewer and querier
     * REST Client: easy way to test APIs with a .http file
 
-## Clone the repository
+## Clone the repository (Using Github)
+* Create your local folder where you want to store your project (e.g. '/an_backend')
+* Now go on the main repository Github page, click on the 'code' green button and copy the URL you'll find in the small window (cloning using web HTTPS url)
+* Open a powershell terminal (or git bash terminal, as you prefer) in the newly created local folder and start the command 
+``` bash
+  git clone <copied URL>
+  ```
+* The remote repository should have been cloned in your local folder
 
-* On your local machine, create the folder where you will store your local repository
-* On the main page of the Bitbucket repository, click on *Clone* (top-right part of the page)
-* Select the option *Clone in VS Code* and allow the site to open Visual Studio Code. A pop-up window should appear - check the box to give permission and then click on *Open*.
-* Visual Studio Code should open and you need to allow the URI to be opened. Click *Open* in the pop-up window that shows up.
-* Select *Clone new copy*, choose the folder you created in the first step and click *Select as repository destination*.
-
-
-After a few seconds, you should see the repository cloned and opened in your Visual Studio Code. In the Explorer panel (top-left side), you should see the following structure:
-
-![Project folder structure](pictures/project_folder_structure.png)
-
+--> now, if you want to push your changes to your new repository, just create a new repository on github, commit your changes in the code, and push your code onto your new remote origin (your repository)
+``` bash
+  git remote set-url origin <your-new-repo-URL>
+  git add .
+  git commit -m "My changes"
+  git push -u origin main
+  ```
 
 ## First set up
 Before running the software, **only the first time**, you need to install all the required packages to ensure proper execution. Follow these steps:<br>
 
-* In the project folder in VSCode, open a new terminal (cmd)
+* In the project folder in VSCode, open a new terminal (e.g. cmd is already ok)
 * Navigate to the `backend` folder by typing 
   ``` bash
   cd backend
@@ -121,5 +124,18 @@ Check that the database was populated <br>
 This means an instance is already running --> to close it, admin privileges are needed
 * Closing the process is the first option
 * 2nd option is to go into the configuration file and change the listening port of the broker
+
+## Clone the repository (Using Bitbucket)
+
+* On your local machine, create the folder where you will store your local repository
+* On the main page of the Bitbucket repository, click on *Clone* (top-right part of the page)
+* Select the option *Clone in VS Code* and allow the site to open Visual Studio Code. A pop-up window should appear - check the box to give permission and then click on *Open*.
+* Visual Studio Code should open and you need to allow the URI to be opened. Click *Open* in the pop-up window that shows up.
+* Select *Clone new copy*, choose the folder you created in the first step and click *Select as repository destination*.
+
+
+After a few seconds, you should see the repository cloned and opened in your Visual Studio Code. In the Explorer panel (top-left side), you should see the following structure:
+
+![Project folder structure](pictures/project_folder_structure.png)
 
 
