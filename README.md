@@ -56,7 +56,7 @@ The code you are provided with, includes  examples of queries that you can use t
 
 In the left panel of VSCode, you should see a tab for **SQLITE EXPLORER**, like this: 
 
-![SQLite Extension](pictures/sqlite_extension.png)
+![SQLite Extension](pictures/sqlite_extension_2.png)
 
 If not, click on the folder *backend*, right-click on `database.sqlite` and select *Open Database*. Now you should see the **SQLITE EXPLORER** tab. 
 
@@ -70,7 +70,7 @@ Check that the database was populated <br>
 * Right-click on `database.sqlite` and select *Open Database*
 * In the **SQLITE EXPLORER** you should see two tables (`user`and `data`)
 
-    ![Database content](pictures/database_content.png)
+    ![Database content](pictures/database_content_2.png)
 
 * Click on the play icon to see the content of the table
 
@@ -136,6 +136,6 @@ This means an instance is already running --> to close it, admin privileges are 
 
 After a few seconds, you should see the repository cloned and opened in your Visual Studio Code. In the Explorer panel (top-left side), you should see the following structure:
 
-![Project folder structure](pictures/project_folder_structure.png)
+![Project folder structure](pictures/project_folder_structure_2.png)
 
 
